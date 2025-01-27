@@ -23,3 +23,5 @@ Things you may want to cover:
 
 * ...
 # youtube-extraction
+
+Youtubeの「いいね」した動画の中から特定のカテゴリの動画だけを抽出し、カテゴリやタグで整理してみやすくしたい。
