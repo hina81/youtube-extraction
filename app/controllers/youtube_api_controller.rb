@@ -39,6 +39,8 @@ class YoutubeApiController < ApplicationController
 
       render json: response["items"]
 
+      # @items = response["items"]
+
     else
       render json: { error: "Access token is missing" }, status: :unauthorized
     end
