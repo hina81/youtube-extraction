@@ -19,11 +19,17 @@ class GoogleAuthController < ApplicationController
       @access_token = response["access_token"]
       refresh_token = response["refresh_token"]
 
-      render json: {
-        access_token: @access_token,
-        refresh_token: refresh_token,
-        expires_in: response["expires_in"]
-      }
+      # セッションにトークンを保存
+      session[:access_token] = @access_token
+      session[:refresh_token] = refresh_token
+
+      redirect_to youtube_api_get_liked_videos_path
+
+      # render json: {
+      #   access_token: @access_token,
+      #   refresh_token: refresh_token,
+      #   expires_in: response["expires_in"]
+      # }
     else
       render json: { error: response["error"], description: response["error_description"] }, status: :bad_request
     end

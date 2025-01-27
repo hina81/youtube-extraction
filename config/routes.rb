@@ -8,4 +8,11 @@ Rails.application.routes.draw do
   end
 
   root "homes#top"
+
+  # GoogleAuthController
+  get 'google_auth/get_access_token', to: 'google_auth#get_access_token'
+
+  # YoutubeApiController
+  get 'youtube_api/get_liked_videos', to: 'youtube_api#get_liked_videos'
+  
 end
