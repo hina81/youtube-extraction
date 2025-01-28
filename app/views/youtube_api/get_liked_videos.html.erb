@@ -1,28 +1,49 @@
-<div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <% @items.each do |item| %>
-        <div class="group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-          <a href="https://www.youtube.com/watch?v=<%= item['id'] %>" target="_blank" rel="noopener noreferrer" class="block">
-            <div class="relative">
-              <img 
-                src="<%= item["snippet"]["thumbnails"]["high"]["url"] %>"
-                alt=<%= item["snippet"]["title"] %>
-                class="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-              <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-            </div>
-            <div class="p-4">
-              <h3 class="text-lg font-medium text-gray-900 mb-2 line-clamp-2 hover:text-blue-600">
-                <%= item["snippet"]["title"] %>
-              </h3>
-              <p class="text-sm text-gray-600 line-clamp-3">
-                <%= item["snippet"]["description"] %>
-              </p>
-            </div>
-          </a>
-        </div>
-      <% end %>
+<div class="flex flex-col gap-6 p-4 bg-gray-100 rounded-md shadow-md">
+  <header class=" p-4 bg-white rounded-md shadow-md">
+    <h1 class="text-xl font-bold mb-4 text-gray-800">カテゴリ選択</h1>
+    
+    <%= form_with url: youtube_api_get_liked_videos_path, method: :get, local: true, class: "flex flex-col gap-4 md:flex-row md:items-center" do %>
+      <div class="flex-grow">
+        <%= select_tag :category_id, 
+            options_for_select(@categories, params[:category_id]), 
+            class: "w-full p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" %>
+      </div>
+      
+      <div>
+        <%= submit_tag "フィルタ", 
+            class: "px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 transition duration-200 ease-in-out" %>
+      </div>
+    <% end %>
+  </header>
+
+
+  <div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @items.each do |item| %>
+          <div class="group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <a href="https://www.youtube.com/watch?v=<%= item['id'] %>" target="_blank" rel="noopener noreferrer" class="block">
+              <div class="relative">
+                <img 
+                  src="<%= item["snippet"]["thumbnails"]["high"]["url"] %>"
+                  alt=<%= item["snippet"]["title"] %>
+                  class="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+              </div>
+              <div class="p-4">
+                <h3 class="text-lg font-medium text-gray-900 mb-2 line-clamp-2 hover:text-blue-600">
+                  <%= item["snippet"]["title"] %>
+                </h3>
+                <p class="text-sm text-gray-600 line-clamp-3">
+                  <%= item["snippet"]["description"] %>
+                </p>
+              </div>
+            </a>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
+
 </div>

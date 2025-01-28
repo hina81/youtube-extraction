@@ -8,13 +8,12 @@ class YoutubeApiController < ApplicationController
         part: "snippet",                  # 動画の基本情報
         myRating: "like",                 # いいねした動画のみ
         maxResults: 50,
-        categoryId: 26,
         access_token: @access_token
       }
 
       uri =
         URI.parse(
-          "https://www.googleapis.com/youtube/v3/videos?part=#{option[:part]}&maxResults=#{option[:maxResults]}&myRating=#{option[:myRating]}&categoryId=#{option[:categoryId]}",
+          "https://www.googleapis.com/youtube/v3/videos?part=#{option[:part]}&maxResults=#{option[:maxResults]}&myRating=#{option[:myRating]}",
         )
 
 
@@ -40,7 +39,34 @@ class YoutubeApiController < ApplicationController
       # render json: response["items"]
 
       # @items = response["items"]
-      @items = response["items"].select { |item| item["snippet"]["categoryId"].to_i == 26 }
+      # @items = response["items"].select { |item| item["snippet"]["categoryId"].to_i == 26 }
+
+      @categories = [
+        [ "全ジャンル", nil ],
+        [ "映画とアニメ", 1 ],
+        [ "自動車と乗り物", 2 ],
+        [ "音楽", 10 ],
+        [ "ペットと動物", 15 ],
+        [ "スポーツ", 17 ],
+        [ "旅行とイベント", 19 ],
+        [ "ゲーム", 20 ],
+        [ "ブログ", 22 ],
+        [ "コメディー", 23 ],
+        [ "エンターテイメント", 24 ],
+        [ "ニュースと政治", 25 ],
+        [ "ハウツーとスタイル", 26 ],
+        [ "教育", 27 ],
+        [ "科学と技術", 28 ]
+      ]
+
+      # 選択されたカテゴリIDを取得
+      category_id = params[:category_id].presence&.to_i
+
+      @items = if category_id
+                response["items"].select { |item| item["snippet"]["categoryId"].to_i == category_id }
+      else
+                response["items"]
+      end
 
     else
       render json: { error: "Access token is missing" }, status: :unauthorized
