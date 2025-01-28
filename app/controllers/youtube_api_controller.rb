@@ -8,13 +8,13 @@ class YoutubeApiController < ApplicationController
         part: "snippet",                  # 動画の基本情報
         myRating: "like",                 # いいねした動画のみ
         maxResults: 50,
-        videoCategoryId: 26,
+        categoryId: 26,
         access_token: @access_token
       }
 
       uri =
         URI.parse(
-          "https://www.googleapis.com/youtube/v3/videos?part=#{option[:part]}&maxResults=#{option[:maxResults]}&myRating=#{option[:myRating]}&videoCategoryId=#{option[:videoCategoryId]}",
+          "https://www.googleapis.com/youtube/v3/videos?part=#{option[:part]}&maxResults=#{option[:maxResults]}&myRating=#{option[:myRating]}&categoryId=#{option[:categoryId]}",
         )
 
 
