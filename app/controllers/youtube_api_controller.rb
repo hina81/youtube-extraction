@@ -37,9 +37,10 @@ class YoutubeApiController < ApplicationController
       response = response.body.force_encoding("UTF-8")
       response = JSON.parse(response)
 
-      render json: response["items"]
+      # render json: response["items"]
 
       # @items = response["items"]
+      @items = response["items"].select { |item| item["snippet"]["categoryId"].to_i == 26 }
 
     else
       render json: { error: "Access token is missing" }, status: :unauthorized

@@ -14,5 +14,5 @@ Rails.application.routes.draw do
 
   # YoutubeApiController
   get 'youtube_api/get_liked_videos', to: 'youtube_api#get_liked_videos'
-  
+
 end
