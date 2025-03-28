@@ -60,5 +60,5 @@ group :test do
 end
 
 gem 'dotenv-rails'
-gem 'httparty', '~> 0.22.0'
+gem 'httparty', '~> 0.23.1'
 gem "tailwindcss-rails", "~> 3.3"
